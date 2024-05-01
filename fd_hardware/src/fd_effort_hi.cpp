@@ -373,6 +373,19 @@ bool FDEffortHardwareInterface::connectToDevice()
         rclcpp::get_logger(
           "FDEffortHardwareInterface"), "dhd : Gravity compensation enabled");
     }
+
+    // Button emulation (omega 7 only)
+    if (dhdEmulateButton(DHD_ON, interface_ID_) < DHD_NO_ERROR) {
+      RCLCPP_WARN(
+        rclcpp::get_logger(
+          "FDEffortHardwareInterface"), "dhd : Could not enable the button emulation !");
+      disconnectFromDevice();
+    } else {
+      RCLCPP_INFO(
+        rclcpp::get_logger(
+          "FDEffortHardwareInterface"), "dhd : Button emulation enabled");
+    }
+
     RCLCPP_INFO(rclcpp::get_logger("FDEffortHardwareInterface"), "dhd : Device connected !");
 
 
